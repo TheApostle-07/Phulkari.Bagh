@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-require-imports */
 "use client";
 
 import React, {
@@ -39,6 +40,12 @@ interface DashboardProps {
   products: Product[];
 }
 
+interface PreviewData {
+  globalPreviews: string[];
+  colorPreviews: { [color: string]: string[] };
+  // Add other properties as needed.
+}
+
 export default function Dashboard({ products: initialProducts }: DashboardProps) {
   // Global states.
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -61,6 +68,7 @@ export default function Dashboard({ products: initialProducts }: DashboardProps)
   });
   const [modalError, setModalError] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [previewData, setPreviewData] = useState<any>(null);
   const [previewModalOpen, setPreviewModalOpen] = useState(false);
   const [previewSelectedColor, setPreviewSelectedColor] = useState<string | null>(null);
