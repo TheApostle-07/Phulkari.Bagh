@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import mongoose, { Schema, model, models } from "mongoose";
 
 // Schema for each image stored on Cloudinary
