@@ -1,25 +1,58 @@
 // app/admin/products/page.tsx
 "use client";
-import Link from "next/link"
 
-// 1. Server-side function to fetch product data
-async function getProducts() {
-  // Adjust the fetch URL if needed. 
-  // Using { cache: "no-store" } ensures data is always fresh in the admin panel.
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/products`, {
-    cache: "no-store",
-  })
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products")
-  }
-
-  return res.json()
+// Define a product interface for type safety
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  desc: string;
 }
 
-export default async function AdminProductsPage() {
-  // 2. Fetch products on the server side
-  const products = await getProducts()
+export default function AdminProductsPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch the products on component mount
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/products`,
+          { cache: "no-store" }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        // Expecting the API to return an array of products
+        const data: Product[] = await res.json();
+        setProducts(data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Something went wrong.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <p style={{ padding: "1rem" }}>Loading...</p>;
+  }
+
+  if (error) {
+    return <p style={{ padding: "1rem", color: "red" }}>{error}</p>;
+  }
 
   return (
     <main style={{ padding: "1rem" }}>
@@ -34,7 +67,7 @@ export default async function AdminProductsPage() {
         <p>No products found.</p>
       ) : (
         <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-          {products.map((product: any) => (
+          {products.map((product: Product) => (
             <li
               key={product._id}
               style={{
@@ -50,15 +83,11 @@ export default async function AdminProductsPage() {
 
               {/* Example edit/delete actions */}
               <div style={{ display: "flex", gap: "1rem" }}>
-                <Link href={`/admin/products/${product._id}/edit`}>
-                  Edit
-                </Link>
+                <Link href={`/admin/products/${product._id}/edit`}>Edit</Link>
                 <button
                   onClick={async () => {
-                    // Example of how you might delete a product:
-                    // await fetch(`/api/products/${product._id}`, { method: "DELETE" })
-                    // Then trigger a re-fetch or refresh to update the list
-                    alert("Delete logic not implemented yet.")
+                    // Example delete logic placeholder
+                    alert("Delete logic not implemented yet.");
                   }}
                   style={{ color: "red" }}
                 >
@@ -70,5 +99,5 @@ export default async function AdminProductsPage() {
         </ul>
       )}
     </main>
-  )
+  );
 }
