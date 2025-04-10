@@ -2,17 +2,25 @@ import dbConnect from "@/lib/db";
 import Cart from "@/lib/models/Cart";
 import { NextResponse } from "next/server";
 
+// Define an interface for a cart item.
+interface CartItem {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 // GET: Fetch the cart for a given user based on a query parameter.
 export async function GET(request: Request) {
   try {
-    // Establish a connection to the database
+    // Establish a connection to the database.
     await dbConnect();
 
-    // Parse query parameters from the request URL
+    // Parse query parameters from the request URL.
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
 
-    // Validate that userId is provided
+    // Validate that userId is provided.
     if (!userId) {
       return NextResponse.json(
         { error: "Missing userId" },
@@ -26,20 +34,24 @@ export async function GET(request: Request) {
 
     // Return the cart if found, otherwise default structure with empty items.
     return NextResponse.json(cart || { userId, items: [] });
-  } catch (error: any) {
-    // Log detailed error for debugging purposes.
+  } catch (error: unknown) {
+    // Narrow the error if possible.
+    if (error instanceof Error) {
+      console.error("Error fetching cart:", error.message);
+      return NextResponse.json(
+        { error: error.message || "Failed to fetch cart" },
+        { status: 500 }
+      );
+    }
     console.error("Error fetching cart:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch cart" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch cart" }, { status: 500 });
   }
 }
 
 // POST: Save or update the cart for a user.
 export async function POST(request: Request) {
   try {
-    // Establish a connection to the database
+    // Establish a connection to the database.
     await dbConnect();
 
     // Parse JSON data from the request body.
@@ -55,16 +67,17 @@ export async function POST(request: Request) {
     }
 
     // Additional validation: Ensure each item has the expected fields.
-    const isValidItems = items.every(
-      (item: any) =>
-        item.productId &&
-        typeof item.productId === "string" &&
-        item.name &&
-        typeof item.name === "string" &&
-        typeof item.price === "number" &&
-        typeof item.quantity === "number" &&
-        Number.isInteger(item.quantity)
-    );
+    const isValidItems = items.every((item: unknown) => {
+      if (typeof item !== "object" || item === null) return false;
+      const cartItem = item as Partial<CartItem>;
+      return (
+        typeof cartItem.productId === "string" &&
+        typeof cartItem.name === "string" &&
+        typeof cartItem.price === "number" &&
+        typeof cartItem.quantity === "number" &&
+        Number.isInteger(cartItem.quantity)
+      );
+    });
 
     if (!isValidItems) {
       return NextResponse.json(
@@ -82,11 +95,18 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json(updatedCart);
-  } catch (error: any) {
-    // Log detailed error for debugging purposes.
+  } catch (error: unknown) {
+    // Narrow the error if possible.
+    if (error instanceof Error) {
+      console.error("Error updating cart:", error.message);
+      return NextResponse.json(
+        { error: error.message || "Failed to update cart" },
+        { status: 500 }
+      );
+    }
     console.error("Error updating cart:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to update cart" },
+      { error: "Failed to update cart" },
       { status: 500 }
     );
   }
