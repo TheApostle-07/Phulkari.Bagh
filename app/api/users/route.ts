@@ -40,11 +40,9 @@ export async function POST(request: Request) {
 
     // Return the created/updated user record
     return NextResponse.json(userRecord, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating/updating user:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to create/update user" },
-      { status: 500 }
-    );
+    const errorMessage = error instanceof Error ? error.message : "Failed to create/update user";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
