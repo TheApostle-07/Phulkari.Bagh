@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
+
 // lib/db.ts
 import mongoose from 'mongoose'
 
