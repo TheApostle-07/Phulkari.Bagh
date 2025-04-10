@@ -1,4 +1,3 @@
-/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-require-imports */
 "use client";
 
 import Image from "next/image";
@@ -23,10 +22,24 @@ interface CartItem {
   quantity: number;
 }
 
+// Define a type for a product.
+interface Product {
+  _id: string;
+  name: string;
+  price: string; // assuming the price is stored as a string (e.g., "Rs 1000")
+  desc?: string;
+  colors?: string[];
+  sizes?: string[];
+  justIn?: boolean;
+  defaultImage: {
+    url: string;
+  };
+}
+
 export default function Home() {
   const router = useRouter();
-  // Products state initialized to an empty array
-  const [products, setProducts] = useState<any[]>([]);
+  // Products state initialized to an empty array of Product
+  const [products, setProducts] = useState<Product[]>([]);
   const [cartCount, setCartCount] = useState(0);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,7 +64,7 @@ export default function Home() {
         if (!res.ok) {
           throw new Error("Failed to fetch products");
         }
-        const data = await res.json();
+        const data: Product[] = await res.json();
         setProducts(data);
       } catch (error) {
         console.error(error);
@@ -82,12 +95,13 @@ export default function Home() {
           }
           const cartData = await res.json();
           if (cartData && Array.isArray(cartData.items)) {
-            const totalCount = cartData.items.reduce(
-              (acc: number, item: any) => acc + item.quantity,
+            const items = cartData.items as CartItem[];
+            const totalCount = items.reduce(
+              (acc: number, item: CartItem) => acc + item.quantity,
               0
             );
             setCartCount(totalCount);
-            setCartItems(cartData.items);
+            setCartItems(items);
           } else {
             setCartCount(0);
             setCartItems([]);
@@ -165,7 +179,7 @@ export default function Home() {
   }, [visibleCount, sortedProducts]);
 
   // --- Add to Cart Handler ---
-  const handleAddToCart = async (product: any) => {
+  const handleAddToCart = async (product: Product) => {
     const priceNum = Number(product.price.replace(/[^\d]/g, ""));
     let updatedCartItems: CartItem[];
 
@@ -226,7 +240,7 @@ export default function Home() {
         pauseOnHover: true,
         draggable: true,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating the cart:", error);
       toast.error("Error updating your cart. Please try again.", {
         position: "top-right",
@@ -240,11 +254,11 @@ export default function Home() {
   };
 
   // WhatsApp enquiry functions.
-  const getWhatsAppMessage = (product: any) => {
+  const getWhatsAppMessage = (product: Product): string => {
     return `I'm interested in ${product.name} priced at Rs ${product.price}. Please send me more details.`;
   };
 
-  const handleWhatsAppEnquiry = (product: any) => {
+  const handleWhatsAppEnquiry = (product: Product) => {
     const message = encodeURIComponent(getWhatsAppMessage(product));
     window.open(
       `https://api.whatsapp.com/send?phone=+919510394742&text=${message}`,
@@ -270,11 +284,7 @@ export default function Home() {
                   <span className={styles.badge}>{cartCount}</span>
                 )}
               </Link>
-              <UserDropdown
-                user={user}
-                cartCount={cartCount}
-                onLogout={() => signOut(auth)}
-              />
+              <UserDropdown user={user} onLogout={() => signOut(auth)} />
             </>
           ) : (
             <div className={styles.authContainer}>
@@ -429,11 +439,10 @@ export default function Home() {
 // ---------------- UserDropdown Component ----------------
 type UserDropdownProps = {
   user: User;
-  cartCount: number;
   onLogout: () => void;
 };
 
-function UserDropdown({ user, cartCount, onLogout }: UserDropdownProps) {
+function UserDropdown({ user, onLogout }: UserDropdownProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
