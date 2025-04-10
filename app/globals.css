@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* app/globals.css */
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-primary: #333;
+  --color-secondary: #999;
+  --color-bg: #fff;
+  --color-text: #333;
+  --color-dark: #222;
+  --color-light: #fff;
+  --transition-speed: 0.3s;
+  --header-height: 70px;
+
+  --primary-color: #4a90e2;       /* Professional blue */
+--primary-dark: #357ABD;
+--secondary-color: #50E3C2;     /* A subtle aqua accent */
+--secondary-dark: #3BAB9E;
+--accent-color: #f5a623;        /* Warm accent for highlights */
+--error-color: #e63946;
+--bg-color: #ffffff;
+--light-bg: #f6f8fa;
+--text-color: #2c3e50;
+--muted-text: #7f8c8d;
+--font-family-main: 'Poppins', sans-serif;
+--transition-speed: 0.3s;
+--border-radius: 10px;
+--header-height: 70px;
+--sidebar-width: 220px;
+
+
+--color-bg: #ffffff;       /* Page background */
+--color-text: #333333;     /* Default text color */
+--color-light: #ffffff;    /* Lighter background (e.g., cards) */
+--color-dark: #000000;     /* Dark color for contrast */
+--color-primary: #0070f3;  /* Accent color (buttons, highlights) */
+--color-secondary: #ff4081;/* Secondary accent color (icons, highlights) */
+--header-height: 70px;
+--transition-speed: 0.3s;  /* Transition speed for hovers, animations */
+
+}
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+ 
+  scroll-behavior: smooth;
+}
+
+
+  /* Reset & Box-Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+  }
+  
+  /* Global Body Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-main);
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+  }
+  
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+
+
+
+
+/* Use "inline" theme or whichever approach you're using for theme variables */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Reference the Poppins variable from layout.tsx */
+  --font-sans: var(--font-poppins);
+  /* If you want to keep a mono font, define it here or remove it */
+  --font-mono: "Fira Code", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Apply the background, text color, and your custom fonts to the body */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+}

@@ -1,0 +1,45 @@
+/* app/admin/admin.css */
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+  
+  .admin-nav {
+    width: 250px;
+    padding: 1rem;
+    background-color: #f8f8f8;
+  }
+  
+  .admin-brand {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .admin-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .admin-nav li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .admin-nav a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .admin-nav a:hover {
+    color: #000;
+  }
+  
+  .admin-main {
+    flex: 1;
+    padding: 1rem;
+    background-color: #fff;
+  }

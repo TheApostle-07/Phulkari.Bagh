@@ -1,0 +1,822 @@
+/* ===================================
+   CSS Variables
+=================================== */
+
+
+/* ===================================
+   Global Styles
+   (Using individual :global selectors for Next.js CSS Modules)
+=================================== */
+
+
+/* ===================================
+   MAIN LAYOUT
+=================================== */
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===================================
+   NAVIGATION
+=================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-light);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: var(--color-dark);
+}
+
+/* Desktop Nav Links */
+.desktopNavLinks {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .desktopNavLinks {
+    display: flex;
+    gap: 1.5rem;
+  }
+}
+
+/* Hamburger button (mobile only) */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bar {
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-dark);
+  transition: background-color var(--transition-speed);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Cart Container (New) */
+.cartContainer {
+  position: relative;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.navCartIcon {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+}
+
+.cartBadge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #e63946;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+}
+
+/* ===================================
+   HERO SECTION
+=================================== */
+.hero {
+  margin-top: var(--header-height);
+  width: 100%;
+  min-height: 70vh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.65)
+    ),
+    url("/images/phulkari_bagh_hero_cover.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.heroContent {
+  color: var(--color-light);
+  max-width: 600px;
+  padding: 2rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.heroContent h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.heroContent p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.heroButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border-radius: 3px;
+  transition: background-color var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.heroButton:hover {
+  background-color: var(--color-dark);
+  transform: scale(1.02);
+}
+
+/* ===================================
+   CONTROLS (Search, Sort, Filter)
+=================================== */
+
+/* ===================================
+   FEATURED PRODUCTS SECTION
+=================================== */
+.featuredProducts {
+  padding: 2rem 1rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featuredProducts h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.featuredProducts h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-primary);
+  margin: 0.5rem auto;
+}
+
+/* -----------------------------------
+   PRODUCT GRID & CARD
+----------------------------------- */
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+/* Force 4 columns on large screens */
+@media (min-width: 1200px) {
+  .productList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.productItem {
+  background-color: var(--color-light);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.productItem:hover {
+  transform: translateY(-3px);
+}
+
+.productTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.wishlistBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color var(--transition-speed);
+  color: var(--color-secondary);
+}
+
+.wishlistBtn:hover {
+  color: var(--color-primary);
+}
+
+.justInLabel {
+  background-color: #e63946;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* Product Image */
+.productImage {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.productImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Product Info */
+.productInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.productInfo h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-dark);
+}
+
+.productInfo p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.price {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: var(--color-dark);
+}
+
+/* Color Swatches */
+.colorRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+/* -----------------------------------
+   SIZE OPTIONS AS SQUARE CARDS
+----------------------------------- */
+.sizeRow {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.sizeOption {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f6f6;
+  border: 1px solid #ddd;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.sizeOption:hover {
+  background-color: #ddd;
+}
+
+/* -----------------------------------
+   ACTION BUTTONS (Stacked Vertically)
+----------------------------------- */
+.actionRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.actionButton,
+.whatsappButton {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton {
+  background-color: var(--color-primary);
+}
+
+.actionButton:hover {
+  background-color: var(--color-dark);
+  transform: scale(1.02);
+}
+
+.cartIcon {
+  margin-right: 0.4rem;
+}
+
+.whatsappButton {
+  background-color: #25d366;
+}
+
+.whatsappButton:hover {
+  background-color: #1ebe57;
+  transform: scale(1.02);
+}
+
+.whatsappIcon {
+  margin-right: 0.4rem;
+}
+
+/* -----------------------------------
+   LAZY LOADING SENTINEL
+----------------------------------- */
+.loadMore {
+  height: 1px;
+}
+
+/* ===================================
+   ABOUT SECTION
+=================================== */
+.aboutUs {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.aboutUs h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.aboutUs h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-primary);
+  margin: 0.5rem auto;
+}
+
+.aboutUs p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* ===================================
+   FOOTER
+=================================== */
+.footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer a {
+  color: var(--color-light);
+  text-decoration: underline;
+  transition: color var(--transition-speed);
+}
+
+.footer a:hover {
+  color: var(--color-primary);
+}
+
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+=================================== */
+@media (max-width: 768px) {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .heroContent p {
+    font-size: 1rem;
+  }
+  .productImage {
+    height: 220px;
+  }
+}
+
+
+/* page.module.css */
+
+/* -------------------
+   Navigation Styles
+------------------- */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.desktopNavLinks a {
+  margin-left: 1.5rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.desktopNavLinks a:hover {
+  color: #4285f4;
+}
+
+.authContainer {
+  margin-left: 1.5rem;
+}
+
+.authLink {
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.authLink:hover {
+  color: #4285f4;
+}
+
+.hamburger {
+  display: none; /* Show it in responsive or adapt as needed */
+  flex-direction: column;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+/* ------------------
+   User Dropdown
+------------------ */
+.userDropdown {
+  position: relative;
+  display: inline-block; /* So the dropdown positions relative to the avatar */
+  margin-left: 1.5rem;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  background-color: #4285f4;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.userAvatar:hover {
+  background-color: #357ae8;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  padding: 0.5rem 0;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+/* When you want to show the menu, add a class like 'menuOpen' or use :hover */
+.userDropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: #f7f7f7;
+}
+
+.badge {
+  background: #e91e63;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  margin-left: 5px;
+}
+
+/* Example: If you need to differentiate a "selected" or separate item 
+.dropdownItem:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+*/
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .desktopNavLinks {
+    display: none; /* For a responsive approach, show a burger menu instead. */
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+
+/* Loader container if needed */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+/* The spinner element */
+.loader:before {
+  content: "";
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #4285f4;  /* Blue accent */
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframes for spin animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Container for the entire nav */
+.nav {
+  display: flex;
+  flex-direction: row;      /* Force a horizontal row layout */
+  justify-content: space-between; /* Left and right sections at opposite ends */
+  align-items: center;       /* Vertically center the content */
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Left section holds the logo */
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo styling */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Right section holds the cart icon and user dropdown */
+.rightSection {
+  display: flex;
+  flex-direction: row;   /* Explicitly set row for horizontal alignment */
+  align-items: center;
+  gap: 1rem;             /* Space between cart and user avatar */
+}
+
+/* Cart icon link styling */
+.cartLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Badge on the cart icon */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  background: #e91e63;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  display: flex;           /* Enable flex for centering text */
+  align-items: center;     /* Vertically center text */
+  justify-content: center; /* Horizontally center text */
+  text-align: center;      
+}
+/* Auth container styling */
+.authContainer {
+  font-size: 1rem;
+}
+
+/* UserDropdown styles remain unchanged */
+.userDropdown {
+  position: relative;
+  cursor: pointer;
+}
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #4285f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+}
+.dropdownMenu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+  min-width: 150px;
+  z-index: 10;
+}
+/* CONTROLS */
+.controls {
+  display: flex;          /* Use Flexbox for layout */
+  flex-wrap: wrap;        /* Allow wrapping when needed */
+  justify-content: center;/* Center horizontally */
+  gap: 1rem;              /* Space between controls */
+  margin: 2rem 0;         /* Vertical spacing */
+  /* Default to row layout for larger screens */
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Common styles for input and select */
+.searchInput,
+.selectInput {
+  box-sizing: border-box; 
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  /* On larger screens, keep a flexible base width */
+  min-width: 180px;
+  max-width: 300px;
+  flex: 1 1 auto;         /* Let them shrink/grow as needed */
+}
+
+.searchInput:focus,
+.selectInput:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* 
+  On smaller screens (up to 768px), switch to column layout 
+  and let each control be as wide as possible.
+*/
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;  /* Make each control's width fill the container */
+    padding: 0 1rem; 
+  }
+
+  .searchInput,
+  .selectInput {
+    /* Fill the container’s width for a cleaner mobile look */
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+/* PRODUCTS LOADER */
+
+.productsLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;  /* Adjust height if needed */
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ccc;
+  border-top-color: #4285f4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* PRODUCT LIST (basic styling for demo purposes) */

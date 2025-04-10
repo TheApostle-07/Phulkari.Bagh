@@ -1,0 +1,441 @@
+/* =====================================
+   GLOBAL SETTINGS (Wrapped in :global)
+===================================== */
+:global(:root) {
+    --primary-color: #4285f4;
+    --primary-dark: #357ae8;
+    --secondary-color: #25d366;
+    --error-color: #e63946;
+    --font-family-main: "Poppins", sans-serif;
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+  }
+  
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-main);
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  :global(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /* =====================================
+     FIXED HEADER / NAVIGATION
+  ===================================== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .desktopNavLinks {
+    display: none;
+  }
+  
+  @media (min-width: 769px) {
+    .desktopNavLinks {
+      display: flex;
+      gap: 1.5rem;
+    }
+  }
+  
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .bar {
+    width: 22px;
+    height: 2px;
+    background-color: #000;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .userArea {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .userDropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .userAvatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .userAvatar:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    min-width: 150px;
+    padding: 0.5rem 0;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  
+  .userDropdown:hover .dropdownMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdownItem {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    color: #333;
+    display: block;
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .dropdownItem:hover {
+    background: #f7f7f7;
+  }
+  
+  .badge {
+    background: #e91e63;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+  }
+  
+  /* =====================================
+     CART CONTAINER
+     Increased top margin to create space above the cart
+  ===================================== */
+  .cartContainer {
+    max-width: 900px;
+    margin: 7rem auto 3rem; /* Increased from 2rem to 4rem */
+    padding: 2rem 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+  }
+  
+  .cartContainer h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #222;
+  }
+  
+  /* =====================================
+     LOADING & AUTH REQUIRED STATES
+  ===================================== */
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background-color: #f7f7f7;
+  }
+  
+  .loaderIcon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  /* Sign-In Prompt Card */
+  .authRequiredContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background-color: #f7f7f7;
+  }
+  
+  .authCard {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .authCard h1 {
+    margin-bottom: 0.75rem;
+    font-size: 1.8rem;
+    color: #222;
+  }
+  
+  .signInLink {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+  }
+  
+  .signInLink:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* =====================================
+     CART ITEMS (SCROLLABLE LIST)
+  ===================================== */
+  .itemsContainer {
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .cartItem {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    transition: box-shadow var(--transition-speed);
+  }
+  
+  .cartItem:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* =====================================
+     ITEM IMAGE & INFO
+  ===================================== */
+  .itemImage {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    flex-shrink: 0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-right: 1rem;
+    border: 1px solid #ddd;
+  }
+  
+  .imagePlaceholder {
+    width: 100%;
+    height: 100%;
+    background-color: #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
+  .itemInfo {
+    flex: 1;
+  }
+  
+  .itemInfo h2 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: #222;
+  }
+  
+  .itemInfo p {
+    font-size: 0.95rem;
+    margin: 0.25rem 0;
+    color: #555;
+  }
+  
+  /* =====================================
+     QUANTITY CONTROLS
+  ===================================== */
+  .quantityControls {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .addButton,
+  .subtractButton {
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+    border-radius: var(--border-radius);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .addButton:hover,
+  .subtractButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Remove Button */
+  .removeButton {
+    background: transparent;
+    border: none;
+    color: var(--error-color);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color var(--transition-speed);
+  }
+  
+  .removeButton:hover {
+    color: #c53030;
+  }
+  
+  /* =====================================
+     CART TOTAL & ACTIONS
+  ===================================== */
+  .total {
+    text-align: right;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .whatsappButton {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0.85rem;
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+  }
+  
+  .whatsappButton:hover {
+    background-color: #1ebe57;
+    transform: translateY(-2px);
+  }
+  
+  .whatsappIcon {
+    font-size: 1.3rem;
+  }
+  
+  /* =====================================
+     ERROR MESSAGE
+  ===================================== */
+  .errorMessage {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--error-color);
+    font-size: 1rem;
+  }
+  
+  /* =====================================
+     RESPONSIVE ADJUSTMENTS
+  ===================================== */
+  @media (max-width: 600px) {
+    .nav {
+      padding: 0 1rem;
+    }
+  
+    .cartContainer {
+      margin: 6rem auto 2rem; /* More spacing for smaller screens as well */
+      padding: 1.5rem 1rem;
+    }
+  
+    .itemImage {
+      width: 80px;
+      height: 80px;
+      margin-right: 0.75rem;
+    }
+  
+    .itemInfo h2 {
+      font-size: 1.1rem;
+    }
+  
+    .itemInfo p {
+      font-size: 0.85rem;
+    }
+  
+    .quantityControls {
+      gap: 0.25rem;
+    }
+  
+    .addButton,
+    .subtractButton {
+      width: 28px;
+      height: 28px;
+      font-size: 0.9rem;
+    }
+  
+    .removeButton {
+      font-size: 1.1rem;
+    }
+  
+    .total {
+      font-size: 1.1rem;
+    }
+  
+    .whatsappButton {
+      font-size: 1rem;
+      padding: 0.75rem;
+    }
+  }

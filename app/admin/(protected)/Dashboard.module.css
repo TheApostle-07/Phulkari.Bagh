@@ -1,0 +1,618 @@
+/* =====================================
+   GLOBAL SETTINGS & RESET
+===================================== */
+
+  
+
+  /* =====================================
+     HEADER & NAVIGATION
+  ===================================== */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--bg-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-color);
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navLinks a {
+    font-size: 1rem;
+    transition: color var(--transition-speed);
+  }
+  
+  .navLinks a:hover {
+    color: var(--primary-dark);
+  }
+  
+  /* =====================================
+     FOOTER
+  ===================================== */
+  .footer {
+    background-color: var(--bg-color);
+    padding: 1rem 2rem;
+    text-align: center;
+    border-top: 1px solid #eaeaea;
+    margin-top: auto;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted-text);
+  }
+  
+  .footerLinks {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footerLinks a {
+    font-size: 0.9rem;
+    transition: color var(--transition-speed);
+  }
+  
+  .footerLinks a:hover {
+    color: var(--primary-color);
+  }
+  
+  /* =====================================
+     DASHBOARD LAYOUT
+  ===================================== */
+  .dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: var(--header-height);
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  /* =====================================
+     TOP BAR (Search & Add Button)
+  ===================================== */
+  .topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .searchWrapper {
+    position: relative;
+    max-width: 500px;
+    flex: 1;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    outline: none;
+    transition: border-color var(--transition-speed);
+  }
+  
+  .searchInput:focus {
+    border-color: var(--primary-color);
+  }
+  
+  .searchIcon {
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #bbb;
+  }
+  
+  .addButton {
+    padding: 0.7rem 1.2rem;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .addButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* =====================================
+     PRODUCT LIST & ITEMS
+  ===================================== */
+  .productList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .productItem {
+    background-color: var(--bg-color);
+    border: 1px solid #eaeaea;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    transition: box-shadow var(--transition-speed);
+  }
+  
+  .productItem:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .productRow {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .productImageContainer {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: #f0f0f0;
+    flex-shrink: 0;
+  }
+  
+  .productDetails {
+    flex: 1;
+    color: var(--text-color);
+  }
+  
+  .productName {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--text-color);
+  }
+  
+  .productDesc {
+    font-size: 0.95rem;
+    color: var(--muted-text);
+    margin-bottom: 0.5rem;
+  }
+  
+  .productPrice {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  /* =====================================
+     SIZES
+  ===================================== */
+  .sizesContainer {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  
+  .sizeChip {
+    padding: 0.4rem 0.8rem;
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    color: var(--text-color);
+  }
+  
+  .sizeChip:hover {
+    background-color: #e9ecef;
+  }
+  
+  .sizeChipSelected {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+  }
+  
+  /* =====================================
+     ACTION BUTTONS
+  ===================================== */
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+  
+  .iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+  }
+  
+  .iconButton:hover {
+    color: var(--primary-dark);
+  }
+  
+  .toggleButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }
+  
+  /* =====================================
+     PAGINATION
+  ===================================== */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .pageButton {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed);
+    color: var(--text-color);
+  }
+  
+  .pageButton:hover:not(:disabled) {
+    background-color: #f0f0f0;
+  }
+  
+  .pageButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* =====================================
+     MODALS & OVERLAYS
+  ===================================== */
+  .modalOverlay,
+  .offlineModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+  }
+  
+  .modal,
+  .offlineModal {
+    background-color: var(--bg-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    color: var(--text-color);
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--muted-text);
+  }
+  
+  .modalError {
+    color: var(--error-color);
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .modalLabel {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .modalInput,
+  .modalTextarea {
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+  }
+  
+  .modalTextarea {
+    min-height: 80px;
+  }
+  
+  .modalButtonRow {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .submitButton {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--border-radius);
+    color: var(--bg-color);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .submitButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .cancelButton {
+    background-color: #ccc;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .cancelButton:hover {
+    background-color: #bbb;
+  }
+  
+  .retryButton {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--border-radius);
+    color: var(--bg-color);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .retryButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* =====================================
+     COLOR PICKER & SWATCHES
+  ===================================== */
+  .colorPickerSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .colorPicker {
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .addColorButton {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .addColorButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .selectedColorsContainer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+  }
+  
+  .selectedColor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 80px;
+  }
+  
+  .colorSwatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+  }
+  
+  .colorSwatch:hover {
+    transform: scale(1.1);
+  }
+  
+  .swatchLabel {
+    font-size: 0.8rem;
+    color: var(--text-color);
+  }
+  
+  .swatchUploads {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .swatchUpload {
+    display: flex;
+    align-items: center;
+  }
+  
+  .swatchFileInput {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
+  
+  /* =====================================
+     SIZE CHIPS (Alternate)
+  ===================================== */
+  .sizeChipsContainer {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  
+  .sizeChip {
+    padding: 0.5rem 1rem;
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    color: var(--text-color);
+  }
+  
+  .sizeChip:hover {
+    background-color: #e9ecef;
+  }
+  
+  .sizeChipSelected {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+  }
+  
+ /* =====================================
+   RESPONSIVE ADJUSTMENTS (Mobile)
+================================ */
+@media (max-width: 768px) {
+    /* General adjustments for header, nav, mainContent, etc. */
+    .header {
+      flex-direction: column;
+      padding: 1rem;
+      height: auto;
+    }
+    
+    .navLinks {
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .mainContent {
+      padding: 1rem;
+    }
+    
+    /* Center the image container and set its size */
+    .productImageContainer {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem auto; /* Centers image container with spacing below */
+    }
+    
+    .modal,
+    .offlineModal {
+      width: 95%;
+      padding: 1.5rem;
+    }
+    
+    /* Modify topBar for vertical alignment on mobile */
+    .topBar {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      gap: 1rem; /* Consistent vertical spacing between child elements */
+    }
+    
+    /* Make each product card stack vertically */
+    .productRow {
+      flex-direction: column;
+      align-items: center;       /* Center items horizontally */
+      text-align: center;        /* Center text in details */
+      gap: 0.75rem;             /* Vertical spacing between elements */
+    }
+    
+    .productDetails {
+      flex: unset;              /* Remove horizontal expansion */
+      width: 100%;              /* Let details span full width if desired */
+    }
+    
+    /* Center the sizes container and its content */
+    .sizesContainer {
+      justify-content: center;  /* Center size chips horizontally */
+      margin-top: 0.5rem;
+    }
+    
+    /* Keep action buttons horizontal but centered below everything */
+    .actionButtons {
+      margin-left: 0;           /* Remove left margin */
+      margin-top: 0.5rem;
+      justify-content: center;
+    }
+  }
