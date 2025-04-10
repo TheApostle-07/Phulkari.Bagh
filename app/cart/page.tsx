@@ -1,5 +1,3 @@
-/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-require-imports */
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -81,9 +79,14 @@ export default function CartPage() {
           const data = await res.json();
           console.log("Fetched cart data:", data);
           setCartItems(data.items || sampleCartItems);
-        } catch (e: any) {
-          console.error("Error fetching cart:", e);
-          setError(e.message || "Unable to fetch cart data.");
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            console.error("Error fetching cart:", error.message);
+            setError(error.message || "Unable to fetch cart data.");
+          } else {
+            console.error("Error fetching cart:", error);
+            setError("Unable to fetch cart data.");
+          }
           setCartItems(sampleCartItems);
         } finally {
           setCartLoading(false);
@@ -104,8 +107,12 @@ export default function CartPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: user.uid, items: cartItems }),
           });
-        } catch (e) {
-          console.error("Error saving cart", e);
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            console.error("Error saving cart:", error.message);
+          } else {
+            console.error("Error saving cart:", error);
+          }
         }
       }
     }
@@ -214,8 +221,12 @@ export default function CartPage() {
     const handleLogout = async () => {
       try {
         await signOut(auth);
-      } catch (error) {
-        console.error("Error signing out:", error);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("Error signing out:", error.message);
+        } else {
+          console.error("Error signing out:", error);
+        }
       }
     };
 
