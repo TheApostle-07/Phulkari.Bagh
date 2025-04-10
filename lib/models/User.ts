@@ -1,7 +1,7 @@
 // lib/models/User.ts
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import mongoose, { Schema, model, models } from "mongoose";
+import mongoose, { model, models } from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
