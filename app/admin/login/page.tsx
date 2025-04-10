@@ -1,9 +1,8 @@
-/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-require-imports */
-
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,10 +12,10 @@ function Header() {
     <header style={headerStyles.container}>
       <div style={headerStyles.logo}>Phulkari Bagh</div>
       <nav style={headerStyles.navLinks}>
-        <a href="/" style={headerStyles.link}>Home</a>
-        <a href="/shop" style={headerStyles.link}>Shop</a>
-        <a href="/about" style={headerStyles.link}>About</a>
-        <a href="/contact" style={headerStyles.link}>Contact</a>
+        <Link href="/" style={headerStyles.link}>Home</Link>
+        <Link href="/shop" style={headerStyles.link}>Shop</Link>
+        <Link href="/about" style={headerStyles.link}>About</Link>
+        <Link href="/contact" style={headerStyles.link}>Contact</Link>
       </nav>
     </header>
   );
@@ -30,8 +29,8 @@ function Footer() {
         &copy; {new Date().getFullYear()} Phulkari Bagh. All rights reserved.
       </p>
       <div style={footerStyles.links}>
-        <a href="/privacy" style={footerStyles.link}>Privacy Policy</a>
-        <a href="/terms" style={footerStyles.link}>Terms & Conditions</a>
+        <Link href="/privacy" style={footerStyles.link}>Privacy Policy</Link>
+        <Link href="/terms" style={footerStyles.link}>Terms &amp; Conditions</Link>
       </div>
     </footer>
   );
@@ -54,7 +53,7 @@ function OfflineModal({ onRetry }: { onRetry: () => void }) {
   return (
     <div style={modalStyles.overlay}>
       <div style={modalStyles.modal}>
-        <h2 style={modalStyles.modalTitle}>You're Offline</h2>
+        <h2 style={modalStyles.modalTitle}>You&apos;re Offline</h2>
         <p style={modalStyles.modalMessage}>Please check your internet connection and try again.</p>
         <button onClick={onRetry} style={modalStyles.modalButton}>Retry</button>
       </div>
@@ -110,14 +109,17 @@ export default function AdminLoginPage() {
       });
 
       if (!res.ok) {
-        // Enhance error messaging here by parsing error responses, if needed.
         throw new Error("Invalid credentials");
       }
 
       // On successful login, redirect to the admin dashboard.
       router.push("/admin");
-    } catch (err: any) {
-      setModalError(err.message || "Something went wrong.");
+    } catch (err: unknown) {
+      let message = "Something went wrong.";
+      if (err instanceof Error) {
+        message = err.message;
+      }
+      setModalError(message);
     } finally {
       setLoading(false);
     }
@@ -186,8 +188,6 @@ export default function AdminLoginPage() {
         </div>
       </main>
       <Footer />
-
-      {/* Show modals for errors */}
       {modalError && <ErrorModal message={modalError} onClose={() => setModalError(null)} />}
       {isOffline && <OfflineModal onRetry={() => window.location.reload()} />}
     </>
@@ -318,7 +318,7 @@ const footerStyles: Record<string, React.CSSProperties> = {
 
 const modalStyles: Record<string, React.CSSProperties> = {
   overlay: {
-    position: "fixed" as "fixed",
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
@@ -336,11 +336,11 @@ const modalStyles: Record<string, React.CSSProperties> = {
     width: "90%",
     maxWidth: "600px",
     maxHeight: "90vh",
-    overflowY: "auto" as "auto",
-    position: "relative" as "relative",
+    overflowY: "auto",
+    position: "relative",
   },
   closeButton: {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "1rem",
     right: "1rem",
     background: "none",
@@ -350,7 +350,7 @@ const modalStyles: Record<string, React.CSSProperties> = {
   },
   modalMessage: {
     color: "#d90429",
-    textAlign: "center" as "center",
+    textAlign: "center",
     marginBottom: "1rem",
   },
   modalButton: {
