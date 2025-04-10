@@ -38,8 +38,12 @@ export default function EditProductPage() {
         setName(productData.name || "")
         setDesc(productData.desc || "")
         setPrice(productData.price?.toString() || "")
-      } catch (err: any) {
-        setError(err.message || "Something went wrong.")
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError("Something went wrong.")
+        }
       } finally {
         setLoading(false)
       }
@@ -77,8 +81,12 @@ export default function EditProductPage() {
 
       // On success, redirect to the products list or do something else
       router.push("/admin/products")
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.")
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError("Something went wrong.")
+      }
     } finally {
       setLoading(false)
     }
