@@ -1,3 +1,4 @@
+/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-require-imports */
 "use client";
 
 import Image from "next/image";
