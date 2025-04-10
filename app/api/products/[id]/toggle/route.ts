@@ -26,9 +26,13 @@ export async function PATCH(
     }
 
     return NextResponse.json(updatedProduct);
-  } catch (error: any) {
+  } catch (error: unknown) {
+    let message = "Failed to toggle product";
+    if (error instanceof Error) {
+      message = error.message;
+    }
     return NextResponse.json(
-      { error: error.message || "Failed to toggle product" },
+      { error: message },
       { status: 500 }
     );
   }
