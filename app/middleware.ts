@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
     try {
       jwt.verify(token, SECRET_KEY)
       return NextResponse.next()
-    } catch (err) {
+    } catch (_err) {
       return NextResponse.redirect(new URL("/admin/login", request.url))
     }
   }
