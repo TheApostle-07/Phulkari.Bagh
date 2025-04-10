@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import mongoose from "mongoose";
 
 const CartItemSchema = new mongoose.Schema({
